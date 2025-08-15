@@ -17,8 +17,9 @@ body{
     display: flex;
     background: linear-gradient(to right, #113971, #feb47b);
     color: white;
-
+    position: relative;
 }
+
 body>div{
     width: 50%;
     display: flex;
@@ -27,12 +28,20 @@ body>div{
     padding: 3rem;
 }
 .login-register-div{
-    /* border: 1px solid; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 0.8rem;
+}
+.login-register-div span{
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.login-register-div span:hover{
+    color: rgb(250, 96, 6);
 }
 .heading-div{
     flex-direction: column;
@@ -46,7 +55,7 @@ body>div{
     gap: 1rem;
 }
 h1{
-    font-size: 4rem;
+    font-size: 2rem;
 }
 .desc{
     font-size: 1.5rem ;
@@ -70,15 +79,9 @@ button{
     transition: transform 0.3s ease;
   /* Optional: to keep image sharp */
   backface-visibility: hidden;
-}
-a{
-    text-decoration: none;
-    color: rgb(248, 146, 139);
-}
-a:hover{
-    color: rgb(250, 82, 82);
+  cursor: pointer;
 }
 button:hover{
     border: 2px solid white;
-    transform: scale(1.1);
 }
+

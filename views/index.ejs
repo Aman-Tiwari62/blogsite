@@ -5,77 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogSite</title>
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/login-register.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+QLD:wght@100..400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/fevicon.png">
+
+
 </head>
 <body>
 
-    <div class="blurr-bg hidden">
-
-        <div class="login-div flex">
-            <h1>Login</h1>
-            <form action="/login" method="post">
-                <label for="email">Enter Email:</label>
-                <input type="email" id="email" name="email">
-                <label for="login-password">Enter Password</label>
-                <input type="password" id="login-password" name="password">
-                <input type="submit" class="button" value="Login">
-            </form>
-            <p>Don't have an account? <span class="register-btn">Register</span><p>
-        </div>
-
-        <div class="register-div hidden">
-            <h1>Register</h1>
-            <form action="/create" method="post">
-            
-                <div>
-                    <label for="useremail">Enter Email:</label>
-                    <input type="email" id="useremail" name="useremail">
-                </div>
-            
-                <div>
-                    <label for="username">Enter Name:</label>
-                    <div class="name">
-                        <input type="text" id="username" name="firstname" placeholder="First Name">
-                        <input type="text"  name="lastname" placeholder="Last Name">
-                    </div>
-                </div>
-            
-                <div>
-                    <label for="password">Create Password:</label>
-                    <input type="password" id="password" name="password">
-                </div>
-            
-                <div>
-                    <label for="password2">Confirm Password:</label>
-                    <input type="password" id="password2">
-                </div>
-            
-                <input type="submit" class="button">
-            </form>
-            <p>Already have an account? <span class="login-btn">Login</span></p>
-        </div>
-
-        <img class="close" src="images/close_32dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg" alt="close">
-
-    </div>
-
+    <!-- left part of the home page -->
     <div class="heading-div">
         <div class="head-desc-div">
-            <h1>BlogSite</h1>
+            <div>
+                <img id="icon" src="images/icon.png" alt="">
+                <h1>BlogSite</h1>
+            </div>
             <p class="desc">"Your voice, your space — share your thoughts, stories, and ideas with the world in just a few clicks."</p>
         </div>
         <div class="login-register-div">
-                <button class="login-btn" type="submit">Login</button>
-            <p>don't have an account? <span class="register-btn">create account</span></p>
+            <button><a href="/auth/loginform">Login</a></button>
+            <p>don't have an account? <a href="/auth/registerform">create account</a></p>
         </div>
     </div>
+
+    <!-- right part of the home page -->
     <div class="img-div">
         <img src="images/homepage-typingphoto.png" alt="">
     </div>
-
-    <script src="js/index.js"></script>
 </body>
 </html>

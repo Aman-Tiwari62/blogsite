@@ -1,32 +1,23 @@
-.blurr-bg{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(40,40,40,0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(5px);
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.flex{
-    display: flex;
-}
-.hidden{
-    display: none;
-}
-.blurr-bg>div{
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
+    position: relative;
 }
-.blurr-bg>h1{
+
+h1{
     font-family: "Nata Sans", sans-serif;
 }
-.blurr-bg form{
+form{
     color: rgb(28, 28, 28);
     background-color: white;
     display: flex;
@@ -39,20 +30,20 @@
     font-size: 1.3rem;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.blurr-bg form>div{
+form>div{
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
-.blurr-bg .name{
+.name{
     display: flex;
     gap: 0.5rem;
 }
-.blurr-bg .name>input{
+.name>input{
     flex-grow: 1;
     width: 0;
 }
-.blurr-bg input{
+input{
     height: 2rem;
     outline: none;
     padding: 0px 0.7rem;
@@ -61,26 +52,34 @@
     font-size: 1rem;
     border-radius: 0.6rem;
 }
-.blurr-bg .button{
+.button{
     background-color: blue;
     color: white;
     font-weight: 500;
     cursor: pointer;
 }
-.blurr-bg label{
+label{
     cursor: pointer;
 }
-.blurr-bg a{
-    color: rgb(160, 160, 248);
+.border-red{
+    box-shadow: 0px 0px 5px red;
 }
-.blurr-bg .close{
+a{
+    color: rgb(29, 29, 255);
+    font-size: 1.2rem;
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.logo{
     position: absolute;
-    top: 2rem;
-    right: 2rem;
-    width: 3rem;
-    cursor: pointer;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: rgb(41, 72, 85);
+    font-weight: 600;
 }
-.blurr-bg span{
-    color: rgb(147, 147, 255);
-    cursor: pointer;
+.logo>img{
+    width: 4rem;
 }

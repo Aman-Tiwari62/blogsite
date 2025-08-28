@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/login-register.css">
+</head>
+<body>
+    <div class="logo">
+        <img src="../images/icon.png" alt="">
+        <span>BlogSite</span>
+    </div>
+    <h1>Login</h1>
+    <form >
+        <label for="email">Enter Email:</label>
+        <input type="email" id="useremail" name="email">
+        <label for="chk-password">Enter Password</label>
+        <input type="password" id="chk-password" name="password">
+        <p class="error-msg" style="color: red; font-size: 1.1rem; visibility: hidden;">error</p>
+        <input type="submit" class="button" value="Login">
+    </form>
+    <p>Don't have an account? <a href="/auth/registerform">Register</a><p>
+    <a href="/">Go to home page</a>
+    <script src="../js/loginForm.js"></script>
+</body>
+</html>
+
+    

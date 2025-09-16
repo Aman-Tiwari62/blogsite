@@ -22,6 +22,8 @@ import {requireAuth} from './middleware/requireAuth.js';
 
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 dotenv.config();
 
 connectDB();
@@ -56,6 +58,10 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server running on http://localhost:${process.env.PORT}`);
+// app.listen(process.env.PORT, () => {
+//     console.log(`Server running on http://localhost:${process.env.PORT}`);
+// });
+
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
 });

@@ -57,6 +57,12 @@ input{
     color: white;
     font-weight: 500;
     cursor: pointer;
+    height: 2rem;
+    outline: none;
+    padding: 0px 0.7rem;
+    border: none;
+    font-size: 1rem;
+    border-radius: 0.6rem;
 }
 label{
     cursor: pointer;
@@ -70,6 +76,32 @@ a{
     text-decoration: none;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.loader {
+    border: 3px solid #f3f3f3; /* Light gray */
+    border-top: 3px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+
+
+
 .logo{
     position: absolute;
     top: 1rem;

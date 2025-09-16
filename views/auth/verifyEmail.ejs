@@ -92,31 +92,26 @@
             color: white;
             text-decoration: none;
         }
-        .success-wrapper{
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            top: 0px;
-            left: 0px;
-            /* filter: blur(8px); */
-            display: none;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px); /* blur background behind parent */
-            -webkit-backdrop-filter: blur(10px); /* for Safari */
+        .loader {
+            border: 3px solid #f3f3f3; /* Light gray */
+            border-top: 3px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 8px;
         }
-        .success{
-            background-color: white;
-            border: 4px solid gray;
-            border-radius: 0.7rem;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            transition: transform 0.1s ease-in;
-            transform: scale(0);
+  
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        .btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
         }
 
     </style>
@@ -126,30 +121,27 @@
         <img src="../images/icon.png" alt="">
         <span>BlogSite</span>
     </a>
-    <div class="success-wrapper">
-        <div class="success">
-            <p>Registration Successfull !!</p>
-            <button class="btn continue">Continue</button>
-        </div>
-    </div>
     <div class="wrapper">
         <div class="box1">
             <h1>Verify your email:</h1>
             <p>An OTP has been sent to your regsitered email: <%=email%> </p>
-            <p class="otp-expire-message">(OTP expires in <span class="expire-time"></span> seconds )</p>
+            <p class="expire-time"></p>
         </div>
         <form >
             <input class="otp" type="text" maxlength="6" name="otp">
-            <input class="btn verify" type="submit" value="Verify">
+            <button type="submit" class="btn" id="submitBtn">
+                <span id="btnText">Submit</span>
+                <span id="btnLoader" class="loader" style="display:none;"></span>
+            </button>
         </form>
         <div class="resendbox">
             <button class="btn resend">Resend</button>
-            <p class="message">Resend OTP in <span class="timer"></span> seconds</p>
+            <p class="timer"></p>
         </div>
         <p class="error-message" style="visibility: hidden; color: red;">here goes the error message</p>
     </div>
 
-    <script src="../js/verify.js"></script>
+    <script src="../js/verifyEmail.js"></script>
 
 </body>
 </html>

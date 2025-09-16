@@ -1,46 +1,35 @@
-// controllers/userController.js
+import cloudinary from "../config/cloudinary.js";
 import User from "../models/User.js";
-import EnrolledUser from "../models/EnrolledUser.js";
 
-import bcrypt from "bcrypt";
-
-
-
-// verify
-export const verify = async (req,res) => {
-  
-  
-}
-// Register user
-export const registerUser = async (req, res) => {
+export const uploadProfile = async (req, res) => {
   try {
-    
+    // Upload file to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "profile_pics",
+    });
 
-    
+    // Get userId (assuming req.user is set by auth middleware)
+    const userId = req.user.id;
 
-    const newUser = new User({ firstname, lastname, email, password });
-    await newUser.save();
-    // console.log("working fine");
+    // Save Cloudinary URL in DB
+    await User.findByIdAndUpdate(userId, { profilePic: result.secure_url });
 
-    res.status(201).json({ message: "User registered successfully", newUser });
+    res.json({ success: true, url: result.secure_url });
+    res.status
   } catch (err) {
-    console.log('error');
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, error: "Upload failed" });
   }
 };
 
-// Login user
-export const loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+export const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
 
-    const user = await User.findOne({ email });
-    if (!user || user.password !== password) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    res.json({ message: "Login successful", user });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  // return res.status(200).json({ success: true, message: "Logged out successfully" });
+  res.redirect('/');
 };
+

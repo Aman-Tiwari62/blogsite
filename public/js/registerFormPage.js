@@ -3,6 +3,9 @@ const email = document.getElementById("email");
 const password = document.getElementById("set-password");
 const confirmPassword = document.getElementById("confirm-password");
 const errorMessage = document.getElementById("error");
+const submitBtn = document.getElementById("submitBtn");
+const btnText = document.getElementById("btnText");
+const btnLoader = document.getElementById("btnLoader");
 
 // Utility: show error
 function showError(input, message) {
@@ -17,6 +20,19 @@ let errorstate = 0; // 0 means error is in password, 1 means error is in email v
 function clearError(input) {
   input.classList.remove("border-red");
   errorMessage.style.visibility = "hidden";
+}
+
+// Toggle button loading state
+function setLoading(isLoading) {
+  if (isLoading) {
+    submitBtn.disabled = true;
+    btnText.style.display = "none";
+    btnLoader.style.display = "inline-block";
+  } else {
+    submitBtn.disabled = false;
+    btnText.style.display = "inline";
+    btnLoader.style.display = "none";
+  }
 }
 
 // Password match check + backend validation
@@ -41,8 +57,9 @@ form.addEventListener("submit", async (e) => {
   const data = Object.fromEntries(formData.entries());
 
   try {
+    setLoading(true); // Show loader
     // 3. Send to backend
-    const response = await fetch("/auth/enroll", {
+    const response = await fetch("/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -56,7 +73,7 @@ form.addEventListener("submit", async (e) => {
       errorstate=1;
     } else if (response.ok) {
       console.log("✅ Email valid, OTP sent");
-      showError(email, `${result.email} ${result.otpSentAt}`);
+      setLoading(false);
       window.location.href = `/auth/verifyPage?email=${result.email}&otpSentAt=${result.otpSentAt}`;
 
     } else {

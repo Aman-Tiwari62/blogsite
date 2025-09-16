@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/homeProfile.css">
+    <!-- <link rel="stylesheet" href="../css/uploadProfile.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nata+Sans:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Slab:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Story+Script&family=TASA+Orbiter:wght@400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Inline+One:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Passions+Conflict&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <aside>
+        <div class="logo">
+            <img src="../images/icon.png" alt="">
+            <span>BlogSite</span>
+        </div>
+        <div class="left">
+            <div class="profile">
+                <img src="<%=user.profilePic || '../images/empty-profile.jpg'%>" alt="img">
+                <p class="name"><%= user.firstname + " " + user.lastname %></p>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li>
+                        <img src="../images/iconhome.svg" alt="">
+                        <span id="homepage">Home</span>
+                    </li>
+                    <li>
+                        <img src="../images/iconprofile.svg" alt="">
+                        <span id="profilepage">Profile</span>
+                    </li>
+                    <li>
+                        <img src="../images/search.svg" alt="">
+                        <span>Search</span>
+                    </li>
+                    <li>
+                        <img src="../images/iconchat.svg" alt="">
+                        <span id="messagepage">Message</span>
+                    </li>
+                    <li>
+                        <img src="../images/iconcreate.svg" alt="">
+                        <span id="createblogpage">Create Blog</span>
+                    </li>
+                    <li>
+                        <img src="../images/iconlogout.svg" alt="">
+                        <span id="logout">Logout</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <main>
+        <div  class="container">
+        </div>  
+        <div  class="create-post-container">
+            <h1>Create Blog</h1>
+            <form class="create-post" id="blogForm" action="/blogs/create" method="POST" enctype="multipart/form-data">
+                <div class="post-preview">
+                    <textarea 
+                        id="content" 
+                        name="content" 
+                        rows="10" 
+                        cols="80" 
+                        placeholder="Write something..."
+                        required
+                    ></textarea>
+                    <div id="preview-box"  class="img-box">
+                        <img id="preview"  src="" alt="photo">
+                    </div>
+                </div>
+              
+                <input type="file" id="photo" name="photo" accept="image/*"><br><br>
+                
+                <div class="box">
+                    <label class="btn" for="photo">Upload a photo (optional):</label><br>
+                    <button id="submitBtn" class="btn" type="submit">
+                        <span  id="btnText">Post</span>
+                        <span class="loader" id="spinner"></span>
+                    </button>
+                </div>
+            </form> 
+        </div> 
+
+        <div class="profile-container" >
+
+            <div class="user-info">
+                <img src="<%=user.profilePic || '../images/empty-profile.jpg'%>" alt="img">
+                <div class="details">
+                    <h1><%=user.firstname+" "+user.lastname%></h1>
+                    <div class="edit">
+                        <button class="edit-btn">Edit Profile Pic</button>
+                        <button class="delete-btn">Delete Profile Pic</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero0">
+                <div id="blogs-list">
+                    <p>Blogs </p>
+                    <p class="count">0</p>
+                    <div></div>
+                </div>
+                <div id="followers-list">
+                    <p>Followers</p>
+                    <p class="count">0</p>
+                    <div style="visibility: hidden;"></div>
+                </div>
+                <div id="followings-list">
+                    <p>Following</p>
+                    <p class="count">0</p>
+                    <div style="visibility: hidden;"></div>
+                </div>
+            </div>
+
+            <div class="user-blogs">
+            </div>
+            
+            <div class="followers">
+
+            </div>
+            <div class="following">
+
+            </div>
+        </div>
+
+    </main>
+    <div class="blurred-container" >
+        <div class="box1">
+            <img id="profileImage" src="<%= user.profilePic || '../images/empty-profile.jpg'%>" alt="Profile Picture" class="profile-pic">
+            <!-- Hidden File Input -->
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="profilePic" accept="image/*">
+                <label for="fileInput" class="upload-btn">Upload New Photo</label>
+            </form>
+            <button class="btn" id="save">Save</button>
+            <span class="uploading-msg"></span>
+            <img class="close-window"  src="../images/close_black.svg" alt="">
+        </div>
+    </div>
+
+    
+
+    <script src="../js/home.js"></script>
+    <script src="../js/post.js"></script>
+    <script src="../js/editprofile.js"></script>
+</body>
+</html>

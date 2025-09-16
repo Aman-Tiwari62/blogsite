@@ -1,5 +1,5 @@
 import express from "express";
-import { enrollUser, login, resendotp, verifyOTP } from "../controllers/authController.js";
+import { register, login, resendotp, verifyEmail, logout } from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -11,17 +11,19 @@ router.get("/registerform", (req,res) => {
     res.render('auth/formRegister');
 }); 
 
-router.post("/enroll",enrollUser);
+router.post("/register",register);
 
 router.get("/verifyPage",(req,res) => {
     const { email,otpSentAt } = req.query;
-    res.render("auth/formVerify", { email });
+    res.render("auth/verifyEmail", { email });
 })
 
-router.post("/verifyotp", verifyOTP);
+router.post("/verifyEmail", verifyEmail);
 
 router.post("/resendotp", resendotp);
 
-router.post("/login", login)
+router.post("/login", login);
+
+router.get("/logout", logout)
 
 export default router;

@@ -5,13 +5,27 @@ const expiretime = document.querySelector('.expire-time');
 const errormessage = document.querySelector('.error-message');
 const form = document.querySelector('form');
 const input = document.querySelector('input');
-const successwrapper = document.querySelector('.success-wrapper');
-const success = document.querySelector('.success');
-const continuebtn = document.querySelector('.continue');
+
+const submitBtn = document.getElementById("submitBtn");
+const btnText = document.getElementById("btnText");
+const btnLoader = document.getElementById("btnLoader");
 
 const urlParams = new URLSearchParams(window.location.search);
 let otpSentAt = parseInt(urlParams.get("otpSentAt"), 10);
 const email = urlParams.get("email");
+
+// Toggle button loading state
+function setLoading(isLoading) {
+  if (isLoading) {
+    submitBtn.disabled = true;
+    btnText.style.display = "none";
+    btnLoader.style.display = "inline-block";
+  } else {
+    submitBtn.disabled = false;
+    btnText.style.display = "inline";
+    btnLoader.style.display = "none";
+  }
+}
 
 resendBtn.disabled = true;
 
@@ -21,26 +35,25 @@ const cooldown = 60 * 1000; // 30 seconds in ms
 let now = Date.now();
 let timeLeft = Math.floor((otpSentAt + cooldown - now) / 1000); // in seconds
 let expireTimeLeft = Math.floor((otpSentAt + 300000 - now) / 1000);
-console.log(timeLeft);
 function updateTimer() {
   if (timeLeft > 0) {
-    timer.textContent = timeLeft;
+    timer.textContent = `Resend OTP in ${timeLeft} seconds`;
     timeLeft--;
   } else {
     clearInterval(countdown);
     resendBtn.disabled = false;
-    // message.textContent = "( Click to Resend )";
-    timer.textContent = "0";
+    timer.textContent = "";
   }
 }
 function updateExpireTime(){
   if(expireTimeLeft > 0){
     let min = Math.floor(expireTimeLeft/60);
     let sec = expireTimeLeft%60;
-    expiretime.textContent = min+" : "+sec;
+    expiretime.textContent = `(OTP expires in ${min} min : ${sec} seconds)`;
     expireTimeLeft--;
   } else{
     clearInterval(expireCountdown);
+    expiretime.textContent = "(OTP expired ! click resend to get the new OTP.)";
   }
 }
 updateExpireTime();
@@ -48,8 +61,16 @@ expireCountdown = setInterval(updateExpireTime,1000);
 updateTimer();
 countdown = setInterval(updateTimer, 1000);
 
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  setLoading(true);
+
+  console.log("verify btn clicked");
   const otp = form.otp.value;
   if(otp.length<6){
     console.log('otp length < 6');
@@ -60,21 +81,26 @@ form.addEventListener('submit', async (e) => {
       email,
       otp
     }
-    const response = await fetch('/auth/verifyOTP', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    })
-    const result = await response.json();
-    if(response.ok){
-      window.location.href = `/user/dashboard?name=${result.name}`;
-    }
-    else{
-      errormessage.textContent = result.error;
+    try{
+      const response = await fetch('/auth/verifyEmail', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      const result = await response.json();
+      setLoading(false);
+      if(response.ok){
+        window.location.href = "/user/uploadProfilePage";
+      }
+      else{
+        errormessage.textContent = result.error;
+        errormessage.style.visibility = "visible";
+      }
+    } catch(err){
+      errormessage.textContent = err;
       errormessage.style.visibility = "visible";
     }
   }
-
 })
 
 input.addEventListener('input', ()=>{

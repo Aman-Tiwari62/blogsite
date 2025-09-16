@@ -3,6 +3,7 @@ import dns from "dns";
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import { sendEmail } from "../utils/sendEmail.js";
+import jwt from "jsonwebtoken";
 
 function checkDomain(email) {
   const domain = email.split("@")[1];
@@ -17,8 +18,7 @@ function checkDomain(email) {
   });
 }
 
-
-export const enrollUser = async (req,res) => {
+export const register = async (req,res) => {
   
     try{
       const { firstname, lastname, email, password } = req.body;
@@ -77,6 +77,9 @@ export const resendotp = async (req, res) => {
         if (!user) {
           return res.status(401).json({ error: "User not found" });
         }
+        if(user.verified){
+          return res.status(401).json({error:"email already verified"});
+        }
         const lastOTPSentAt = user.otpSentAt;
         const now = Date.now();
         if((now - lastOTPSentAt) > 60*1000){
@@ -98,23 +101,40 @@ export const resendotp = async (req, res) => {
     }
 };
 
-export const verifyOTP = async (req, res) => {
+export const verifyEmail = async (req, res) => {
   const {otp, email} = req.body;
   const user = await User.findOne({email});
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
+  if(user.verified){
+    return res.status(401).json({error:"email already verified"});
+  }
   if(Date.now()-user.otpSentAt > 5*60*1000){
-    res.status(401).json({error:"otp expired, click resend to get new otp!"});
+    return res.status(401).json({error:"otp expired, click resend to get new otp!"});
   }
   else if(user.otp !== otp){
-    res.status(402).json({error:"invalid otp ! eneter correct otp"});
+    return res.status(402).json({error:"invalid otp ! eneter correct otp"});
   }
   user.verified = true;
   user.otp = null; // optional: clear otp
   user.otpSentAt = null; // optional: clear sent time
   await user.save();
-  res.status(201).json({message:"email verified!", name: user.firstname+" "+user.lastname});
+  const token = jwt.sign(
+    { id: user._id},
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" }
+  );
+
+  // ✅ Send token in httpOnly cookie
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  
+
+  return res.status(201).json({message:"email verified!"});
 
 }
 
@@ -123,8 +143,8 @@ export const login = async (req, res) => {
   // status code: - 
   // 400 (error in email, either invalid format, invalid domain or email not registered)
   // 401 (password don't match)
-  // 500 (server error)
   // 403 (user not verified);
+  // 500 (server error)
 
   try{
     // step 1 of verification: format check
@@ -154,9 +174,27 @@ export const login = async (req, res) => {
       await sendEmail(email, "Your OTP Code", `Your OTP is: ${otp}`);
       return res.status(403).json({ message: "User enrolled. OTP sent", email, otpSentAt });
     }
-    return res.status(200).json({success:"login successfull", name: user.firstname+" "+user.lastname});
+    console.log("3");
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+    console.log('4');
+
+    return res.status(200).json({success:"login successfull"});
   } catch(err){
     console.log(err);
     res.status(500).json({error:"server error"});
   }
+}
+
+export const logout = async (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  res.json({ message: "Logged out successfully" });
 }

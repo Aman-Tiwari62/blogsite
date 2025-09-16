@@ -2,13 +2,31 @@ const form = document.querySelector('form');
 const errormessage = document.querySelector('.error-msg');
 const email = document.querySelector('#useremail');
 const password = document.querySelector('#chk-password');
-console.log("connected");
+const submitBtn = document.getElementById("submitBtn");
+const btnText = document.getElementById("btnText");
+const btnLoader = document.getElementById("btnLoader");
+
 let errorin; // 0 means error in email, 1 means in password
+
+// Toggle button loading state
+function setLoading(isLoading) {
+    if (isLoading) {
+      submitBtn.disabled = true;
+      btnText.style.display = "none";
+      btnLoader.style.display = "inline-block";
+    } else {
+      submitBtn.disabled = false;
+      btnText.style.display = "inline";
+      btnLoader.style.display = "none";
+    }
+  }
+
 form.addEventListener('submit', async (e)=>{
     e.preventDefault();
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     try {
+        setLoading(true); // Show loader
         // make fetch request
         const response = await fetch("/auth/login", {
           method: "POST",  // or "GET" if backend expects query params
@@ -21,9 +39,9 @@ form.addEventListener('submit', async (e)=>{
         const result = await response.json(); // parse JSON response
         console.log(result);
     
+        setLoading(false);
         if (response.status === 200) {
-          console.log("successfull login !");
-          window.location.href = `/user/dashboard?name=${result.name}`;
+          window.location.href = "/user/home";
         }else if(response.status === 403){
             window.location.href = `/auth/verifyPage?email=${result.email}&otpSentAt=${result.otpSentAt}`;
         }else if(response.status==400) { // error in email

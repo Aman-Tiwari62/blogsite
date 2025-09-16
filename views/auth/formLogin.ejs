@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blogsite : Login</title>
     <link rel="stylesheet" href="/css/login-register.css">
+    <link rel="icon" type="image/png" href="../images/fevicon.png">
 </head>
 <body>
     <div class="logo">
@@ -18,7 +19,10 @@
         <label for="chk-password">Enter Password</label>
         <input type="password" id="chk-password" name="password">
         <p class="error-msg" style="color: red; font-size: 1.1rem; visibility: hidden;">error</p>
-        <input type="submit" class="button" value="Login">
+        <button type="submit" class="button" id="submitBtn">
+            <span id="btnText">Submit</span>
+            <span id="btnLoader" class="loader" style="display:none;"></span>
+        </button>
     </form>
     <p>Don't have an account? <a href="/auth/registerform">Register</a><p>
     <a href="/">Go to home page</a>

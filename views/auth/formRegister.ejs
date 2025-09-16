@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BlogSite : Register</title>
     <link rel="stylesheet" href="/css/login-register.css">
+    <link rel="icon" type="image/png" href="../images/fevicon.png">
 </head>
 <body>
     <div class="logo">
@@ -13,6 +14,7 @@
     </div>
 
     <h1>Register</h1>
+
     <form id="registerForm">
 
         <div>
@@ -39,7 +41,10 @@
         </div>
         <p id="error" style="color:red; visibility:hidden;">Error</p>
 
-        <input type="submit" class="button">
+        <button type="submit" class="button" id="submitBtn">
+            <span id="btnText">Submit</span>
+            <span id="btnLoader" class="loader" style="display:none;"></span>
+        </button>
     </form>
     <p>Already have an account? <a href="/auth/loginform">Login</a></p>
     <a href="/">Go to home page</a>

@@ -55,7 +55,7 @@ export const register = async (req,res) => {
         otpSentAt,
       });
       await newUser.save();
-      await sendEmail(email, "Your OTP Code", `Your OTP is: ${otp}`);
+      await sendEmail(email, otp);
       res.status(201).json({ message: "User enrolled. OTP sent", email, otpSentAt });
   
     } catch(err){

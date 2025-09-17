@@ -14,7 +14,7 @@ router.get('/loadBlogs', async (req, res) => {
         const blogs = await Blog.find()
           .populate("author", "firstname lastname email profilePic") // show author info
           .sort({ createdAt: -1 }); // newest first
-        console.log(blogs);
+        // console.log(blogs);
         res.status(200).json(blogs);
     } catch (error) {
         res.status(500).json({ message: "Error fetching blogs", error });

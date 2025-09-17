@@ -38,7 +38,7 @@ function setLoading(isLoading) {
 // Password match check + backend validation
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-
+  console.log("submit button clicked");
   // Reset errors first
   clearError(email);
   clearError(password);
@@ -49,6 +49,7 @@ form.addEventListener("submit", async (e) => {
     showError(password, "Passwords do not match !");
     confirmPassword.classList.add("border-red");
     errorstate=0;
+    console.log("password do not match");
     return;
   }
 
@@ -59,11 +60,13 @@ form.addEventListener("submit", async (e) => {
   try {
     setLoading(true); // Show loader
     // 3. Send to backend
+    console.log("hello");
     const response = await fetch("/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+    console.log("namaste");
 
     const result = await response.json();
 
@@ -73,15 +76,15 @@ form.addEventListener("submit", async (e) => {
       errorstate=1;
     } else if (response.ok) {
       console.log("✅ Email valid, OTP sent");
-      setLoading(false);
       window.location.href = `/auth/verifyPage?email=${result.email}&otpSentAt=${result.otpSentAt}`;
-
+      
     } else {
       alert(result.error || "Something went wrong!");
     }
   } catch (err) {
     alert("Network error. Please try again later.");
   }
+  setLoading(false);
 });
 
 // Clear error when user starts typing again

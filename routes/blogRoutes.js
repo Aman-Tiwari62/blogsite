@@ -24,7 +24,8 @@ router.get('/loadBlogs', async (req, res) => {
 router.get('/loadMyBlogs', async (req,res) => {
     try {
         const userId = req.user.id; // from decoded JWT
-        const blogs = await Blog.find({ author: userId }).populate("author");
+        const blogs = await Blog.find({ author: userId }).populate("author")
+        .sort({ createdAt: -1 });
         res.json(blogs);
     } catch (err) {
         res.status(500).json({ error: "Failed to fetch user blogs" });

@@ -76,6 +76,7 @@ button{
     transition: transform 0.3s ease;   
     backface-visibility: hidden; /* Optional: to keep image sharp */
     cursor: pointer;
+    color: white;
 }
 
 button>a{

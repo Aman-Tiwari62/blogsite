@@ -3,10 +3,24 @@ const save = document.getElementById('save');
 const fileInput = document.getElementById("fileInput");
 const profileImage = document.getElementById("profileImage");
 const uploadForm = document.getElementById("uploadForm");
+const btnText = document.getElementById("btnText");
+const btnLoader = document.getElementById("btnLoader");
 
 skip.addEventListener('click', ()=>{
     window.location.href = "/user/home";
 })
+
+function setLoading(isLoading) {
+    if (isLoading) {
+    //   submitBtn.disabled = true;
+      btnText.style.display = "none";
+      btnLoader.style.display = "inline-block";
+    } else {
+      submitBtn.disabled = false;
+      btnText.style.display = "inline";
+      btnLoader.style.display = "none";
+    }
+}
 
 save.disabled = true;
 let selectedFile = null;
@@ -30,7 +44,8 @@ save.addEventListener('click', async ()=>{
         alert("Please choose a profile picture first!");
         return;
     }
-
+    
+    setLoading(true);
     const formData = new FormData();
     formData.append("profilePic", selectedFile);
 
@@ -53,4 +68,5 @@ save.addEventListener('click', async ()=>{
         console.error(err);
         alert("Something went wrong while saving.");
     }
+    setLoading(true);
 })

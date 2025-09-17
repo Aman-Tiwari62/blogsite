@@ -3,28 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BlogSite : Upload Profile</title>
+    <link rel="icon" type="image/png" href="../images/fevicon.png">
     <link rel="stylesheet" href="/css/uploadProfile.css">
 </head>
 <body>
-    <div class="logo">
-        <img src="../images/icon.png" alt="">
-        <span>BlogSite</span>
-    </div>
-    <div class="edit-container">
-        <!-- Default Profile Image -->
-        <img id="profileImage" src="<%= user.profilePic || '../images/empty-profile.jpg'%>" alt="Profile Picture" class="profile-pic">
-    
-        <!-- Hidden File Input -->
-        <form id="uploadForm" enctype="multipart/form-data">
-            <input type="file" id="fileInput" name="profilePic" accept="image/*">
-            <label for="fileInput" class="upload-btn">Upload New Photo</label>
-        </form>
-        <div class="skip-continue">
-            <button class="btn" id="skip">Skip</button>
-            <button class="btn" id="save" disabled>Save & Continue</button>
+    <header>
+        <div class="logo">
+            <img src="../images/icon.png" alt="">
+            <span>BlogSite</span>
         </div>
-    </div>
+    </header>
+    <main>
+        <div class="profile-container">
+            <!-- Default Profile Image -->
+            <img id="profileImage" src="<%= user.profilePic || '../images/empty-profile.jpg'%>" alt="Profile Picture" class="profile-pic">
+        
+            <!-- Hidden File Input -->
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="profilePic" accept="image/*">
+                <label for="fileInput" class="upload-btn">Upload New Photo</label>
+            </form>
+            <div class="skip-continue">
+                <button class="btn" id="skip">Skip</button>
+                <!-- <button class="btn" id="save" disabled>Save & Continue</button> -->
+                <button type="submit" class="btn" id="save" disabled>
+                    <span id="btnText">Save & Continue</span>
+                    <span id="btnLoader" class="loader" style="display:none;"></span>
+                </button>
+            </div>
+        </div>
+    </main>
     <script src="../js/uploadProfile.js"></script>
 </body>
 </html>

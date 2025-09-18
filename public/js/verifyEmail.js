@@ -82,6 +82,7 @@ function delay(ms) {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  errormessage.style.visibility = "hidden";
 
   setLoading(true);
 
@@ -126,6 +127,7 @@ input.addEventListener('input', ()=>{
 resend.addEventListener('click', async ()=>{
   // console.log("clicked");
   // console.log(email);
+  errormessage.style.visibility = "hidden";
   setLoadingResend(true);
   try{
     const data = {email};

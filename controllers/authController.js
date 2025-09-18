@@ -4,6 +4,7 @@ import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import { sendEmail } from "../utils/sendEmail.js";
 import jwt from "jsonwebtoken";
+import {generateOTP} from "../utils/generateOTP.js"
 
 function checkDomain(email) {
   const domain = email.split("@")[1];
@@ -90,7 +91,7 @@ export const resendotp = async (req, res) => {
           user.otpSentAt = otpSentAt;
           await user.save();
           // send OTP via email
-          await sendEmail(email, "Your OTP Code", `Your new OTP is ${otp}`);
+          await sendEmail(email, otp);
           res.status(201).json({otpSentAt});
         } else{
           res.status(400).json({error:"wait for 60 seconds before resending"});
@@ -171,7 +172,7 @@ export const login = async (req, res) => {
     console.log("2");
     if(!user.verified){
       const { otp, otpSentAt } = await generateOTP(user);
-      await sendEmail(email, "Your OTP Code", `Your OTP is: ${otp}`);
+      await sendEmail(email, otp);
       return res.status(403).json({ message: "User enrolled. OTP sent", email, otpSentAt });
     }
     console.log("3");

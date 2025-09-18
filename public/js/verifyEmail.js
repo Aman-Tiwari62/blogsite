@@ -107,23 +107,20 @@ input.addEventListener('input', ()=>{
   errormessage.style.visibility = "hidden";
 })
 
-continuebtn.addEventListener('click', ()=>{
-  window.location.href = `/user/dashboard?email=${email}`;
-})
 
 resendBtn.addEventListener('click', async ()=>{
-  console.log("clicked");
-  console.log(email);
+  // console.log("clicked");
+  // console.log(email);
   try{
     const data = {email};
-    console.log(data);
+    // console.log(data);
     const response = await fetch("/auth/resendotp", {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
     if(response.ok){
 
       errormessage.textContent = "otp sent !";

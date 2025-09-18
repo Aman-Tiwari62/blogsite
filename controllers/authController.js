@@ -4,7 +4,7 @@ import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import { sendEmail } from "../utils/sendEmail.js";
 import jwt from "jsonwebtoken";
-import {generateOTP} from "../utils/generateOTP.js"
+// import {generateOTP} from "../utils/generateOTP.js"
 
 function checkDomain(email) {
   const domain = email.split("@")[1];
@@ -171,7 +171,8 @@ export const login = async (req, res) => {
     }
     console.log("2");
     if(!user.verified){
-      const { otp, otpSentAt } = await generateOTP(user);
+      const otp = Math.floor(100000 + Math.random() * 900000).toString(); // generating the email
+      const otpSentAt = Date.now();
       await sendEmail(email, otp);
       return res.status(403).json({ message: "User enrolled. OTP sent", email, otpSentAt });
     }

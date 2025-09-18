@@ -131,12 +131,15 @@
         <form >
             <input class="otp" type="text" maxlength="6" name="otp">
             <button type="submit" class="btn" id="submitBtn">
-                <span id="btnText">Submit</span>
+                <span id="btnText">Verify</span>
                 <span id="btnLoader" class="loader" style="display:none;"></span>
             </button>
         </form>
         <div class="resendbox">
-            <button class="btn resend">Resend</button>
+            <button class="btn resend" id="resendBtn">
+                <span id="btnText-resend">Resend</span>
+                <span id="btnLoader-resend" class="loader" style="display: none;"></span>
+            </button>
             <p class="timer"></p>
         </div>
         <p class="error-message" style="visibility: hidden; color: red;">here goes the error message</p>

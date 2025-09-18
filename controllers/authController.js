@@ -115,7 +115,7 @@ export const verifyEmail = async (req, res) => {
     return res.status(401).json({error:"otp expired, click resend to get new otp!"});
   }
   else if(user.otp !== otp){
-    return res.status(402).json({error:"invalid otp ! eneter correct otp"});
+    return res.status(402).json({error:"invalid otp ! Enter correct otp"});
   }
   user.verified = true;
   user.otp = null; // optional: clear otp

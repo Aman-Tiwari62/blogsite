@@ -1,4 +1,4 @@
-const resendBtn = document.querySelector('.resend');
+const resend = document.querySelector('.resend');
 const verifyBtn = document.querySelector('.verify');
 const timer = document.querySelector('.timer');
 const expiretime = document.querySelector('.expire-time');
@@ -9,6 +9,10 @@ const input = document.querySelector('input');
 const submitBtn = document.getElementById("submitBtn");
 const btnText = document.getElementById("btnText");
 const btnLoader = document.getElementById("btnLoader");
+
+const resendBtn = document.getElementById("resendBtn");
+const btnTextResend = document.getElementById("btnText-resend");
+const btnLoaderResend = document.getElementById("btnLoader-resend");
 
 const urlParams = new URLSearchParams(window.location.search);
 let otpSentAt = parseInt(urlParams.get("otpSentAt"), 10);
@@ -26,8 +30,19 @@ function setLoading(isLoading) {
     btnLoader.style.display = "none";
   }
 }
+function setLoadingResend(isLoading) {
+  if (isLoading) {
+    resendBtn.disabled = true;
+    btnTextResend.style.display = "none";
+    btnLoaderResend.style.display = "inline-block";
+  } else {
+    // resendBtn.disabled = false;
+    btnTextResend.style.display = "inline";
+    btnLoaderResend.style.display = "none";
+  }
+}
 
-resendBtn.disabled = true;
+resend.disabled = true;
 
 let countdown;
 let expireCountdown;
@@ -41,7 +56,7 @@ function updateTimer() {
     timeLeft--;
   } else {
     clearInterval(countdown);
-    resendBtn.disabled = false;
+    resend.disabled = false;
     timer.textContent = "";
   }
 }
@@ -88,7 +103,6 @@ form.addEventListener('submit', async (e) => {
         body: JSON.stringify(data)
       })
       const result = await response.json();
-      setLoading(false);
       if(response.ok){
         window.location.href = "/user/uploadProfilePage";
       }
@@ -101,6 +115,7 @@ form.addEventListener('submit', async (e) => {
       errormessage.style.visibility = "visible";
     }
   }
+  setLoading(false);
 })
 
 input.addEventListener('input', ()=>{
@@ -108,9 +123,10 @@ input.addEventListener('input', ()=>{
 })
 
 
-resendBtn.addEventListener('click', async ()=>{
+resend.addEventListener('click', async ()=>{
   // console.log("clicked");
   // console.log(email);
+  setLoadingResend(true);
   try{
     const data = {email};
     // console.log(data);
@@ -123,8 +139,8 @@ resendBtn.addEventListener('click', async ()=>{
     // console.log(result);
     if(response.ok){
 
-      errormessage.textContent = "otp sent !";
-      errormessage.style.visibility = "visible";
+      // errormessage.textContent = "otp sent !";
+      // errormessage.style.visibility = "visible";
 
       if (countdown) clearInterval(countdown);
       if (expireCountdown) clearInterval(expireCountdown);
@@ -134,7 +150,7 @@ resendBtn.addEventListener('click', async ()=>{
       url.searchParams.set("otpSentAt", otpSentAt);
       window.history.replaceState({}, "", url);
 
-      resendBtn.disabled = true;
+      resend.disabled = true;
       now = Date.now();
       timeLeft = Math.floor((otpSentAt + cooldown - now) / 1000); // in seconds
       expireTimeLeft = Math.floor((otpSentAt + 300000 - now) / 1000);
@@ -151,4 +167,5 @@ resendBtn.addEventListener('click', async ()=>{
   }catch{
     alert("some error in otp resending");
   }
+  setLoadingResend(false);
 })

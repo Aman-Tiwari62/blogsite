@@ -58,6 +58,8 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+
+// // You can access it from your own machine (http://localhost:PORT). But other devices on the same network cannot reach your server.
 // app.listen(process.env.PORT, () => {
 //     console.log(`Server running on http://localhost:${process.env.PORT}`);
 // });

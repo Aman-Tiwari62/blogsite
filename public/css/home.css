@@ -102,11 +102,11 @@ main{
     padding: 5rem 0rem;
     margin-left: 20rem;
     border: 1px solid;
-    min-height: 100%;
+    /* min-height: 100%; */
 
 }
 .container{
-    width: 50rem;
+    width: 50%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -114,7 +114,7 @@ main{
 }
 
 .blog-container{
-    padding: 1rem;
+    padding: 0.6rem;
     background-color: white;
    box-shadow: 0px 0px 4px rgb(107, 107, 107);
     border-radius: 0.4rem;
@@ -142,15 +142,16 @@ main{
 .blog{
     font-family: "Roboto", sans-serif;
     padding: 0rem 1.5rem;
-    margin-left: 2.5rem;
+    /* margin-left: 2.5rem; */
     border-radius: 0.3rem;
     /* border: 1px solid; */
 }
 .blog>.box1{
     display: flex;
     justify-content: center;
-    margin-bottom: 0.7rem;
+    /* margin-bottom: 0.7rem; */
     overflow: hidden;
+    /* border: 1px solid red; */
 }
 .blog>h1{
     color: rgb(71, 69, 69);
@@ -251,7 +252,7 @@ input[type="file"] {
 
 @media(max-width:1150px){
     .container{
-        width: 90%;
+        width: 70%;
         gap: 1rem;
     }
     .blog-img{
@@ -312,6 +313,9 @@ input[type="file"] {
     }
     main{
         margin-left: 10rem;
+    }
+    .container{
+        width: 90%;
     }
 }
 @media(max-width:650px){
@@ -389,6 +393,9 @@ input[type="file"] {
     .left{
         /* background-color: blue; */
         min-height: 0rem;
+        width: 100%;
+    }
+    .blog-img{
         width: 100%;
     }
 }

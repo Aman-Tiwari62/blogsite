@@ -389,7 +389,8 @@ input[type="file"] {
         height: 100vh;
     }
     aside{
-        position: static;
+        position: fixed;
+        bottom: 0;
         height: auto;
         /* background-color: red; */
         flex-direction: row;

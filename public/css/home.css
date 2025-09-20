@@ -3,9 +3,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+html{
+    height: 100%;
+}
 body{
     display: flex;
     position: relative;
+    height: 100%;
 }
 
 /* logo */
@@ -97,7 +101,9 @@ main{
     justify-content: center;
     padding: 5rem 0rem;
     margin-left: 20rem;
-    /* background-color: yellow; */
+    border: 1px solid;
+    min-height: 100%;
+
 }
 .container{
     width: 50rem;
@@ -359,34 +365,14 @@ input[type="file"] {
         border: none;
         width: 100%;
     }
-    /* aside{
-        width: 100%;
-        height: 60px;  
-        z-index:-1;
-        bottom: -2px;  
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgb(241, 5, 5);
-    }
-    .left{
-        border: none;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        z-index: 10;
-    } */
     .nav>ul>li{
         margin: 0rem;
     }
     body{
         flex-direction: column-reverse;
         height: 100vh;
+        padding-bottom: 55px;
+        /* background-color: black; */
     }
     aside{
         position: fixed;
@@ -398,6 +384,7 @@ input[type="file"] {
     }
     main{
         /* background-color: yellow; */
+        /* padding-bottom: 10px; */
     }
     .left{
         /* background-color: blue; */

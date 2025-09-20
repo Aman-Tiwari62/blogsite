@@ -102,3 +102,7 @@ logoutBtn.addEventListener('click', async ()=>{
   window.location.href = "/";
 })
 
+const aside = document.querySelector('aside');
+aside.addEventListener('click', ()=>{
+  console.log('aside clicked');
+})
